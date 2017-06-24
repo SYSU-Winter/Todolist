@@ -22,7 +22,7 @@ public class Alarm {
         MyDB myDB = new MyDB(context);
 
         Vector<String> Dates = myDB.queryAll(1).get("dates");
-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy年MM月dd日，HH:mm");
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy年MM月dd日,HH:mm");
         String[] date  = new String[Dates.size()];
         for (int i = 0; i < Dates.size(); i++)
             date[i] = Dates.get(i);

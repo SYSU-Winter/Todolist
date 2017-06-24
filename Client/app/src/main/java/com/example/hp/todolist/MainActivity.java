@@ -1,10 +1,13 @@
 package com.example.hp.todolist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -59,8 +62,30 @@ public class MainActivity extends AppCompatActivity {
         head_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
-                startActivityForResult(intent1, 1);
+                if (!head_iv.getText().toString().equals("guest")) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                    dialog.setTitle("注意!")
+                            .setMessage("当前用户为：" + head_iv.getText().toString() + ",是否需要重新登录或切换用户？")
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                                    startActivity(intent1);
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .show();
+                }
+                else {
+                    Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent1);
+                }
             }
         });
 
@@ -95,24 +120,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // 处理从LoginActivity中返回的数据
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == 2){
-            if(requestCode == 1){
-                int request = data.getIntExtra("ValueOfId", 666);//接收返回数据
-                head_iv.setText(String.valueOf(request));
-            }
-        }
-
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
+        // 首先看看当前是不是用用户登录了
+        SharedPreferences preferences = getSharedPreferences("UserNameData", MODE_PRIVATE);
+        String id = preferences.getString("id", "guest");
+        head_iv.setText(id);
         mySensor.registerSensor();
         sendBroadcast(new Intent(NewAppWidget.ACTION_UPDATE_ALL));
     }
@@ -144,9 +158,9 @@ public class MainActivity extends AppCompatActivity {
                 int q = titles.size();
                 Log.i("map_size", Integer.toString(q));
                 if (q == 0) {
-                    toShare = "任务全部完成啦！";
+                    toShare = "爸爸的任务全部完成啦！";
                 } else {
-                    toShare = "DDL复deadline，DDL何其多\n-----------------\n";
+                    toShare = "还有任务没有完成啊...\n……………………\n好吧我就是想要测试一下分享出去没^_^\n";
                     Vector<String> dates = map.get("dates");
                     for (int i = 0; i < titles.size(); i++) {
                         toShare = toShare + "Task" + Integer.toString(i + 1) + ": " + titles.get(i).toString() +

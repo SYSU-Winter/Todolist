@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class MyHttpPost {
     // 服务器地址
-    private String SERVER = "http://192.168.199.239:8080";
+    private String SERVER = "http://172.18.70.88:8080";
     // 项目地址
     private String PROJECT = "/LoginServer/";
 

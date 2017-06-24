@@ -3,6 +3,7 @@ package com.example.hp.todolist;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
@@ -60,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog = new ProgressDialog(LoginActivity.this);
                         progressDialog.setTitle("登录中");
                         progressDialog.setMessage("正在登录，请稍候...");
-                        progressDialog.setCancelable(false);
+                        progressDialog.setCancelable(true);
                         progressDialog.show();
                         LoginPostThread(a, b);
                     }
@@ -93,14 +94,13 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "跳转", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         String x = id.getText().toString();
-                        int xx = Integer.parseInt(x);
-                        intent.putExtra("ValueOfId", xx);
-                        Log.i("id.getText().toString()", x);
-                        //通过Intent对象返回结果，调用setResult方法
-                        setResult(2, intent);
-                        finish();//结束当前的activity的生命周期
-//                        intent.putExtra("com.sysu.lwt.todolist", a);
-//                        startActivity(intent);
+
+                        // 存储当前用户的id
+                        SharedPreferences.Editor editor = getSharedPreferences("UserNameData", MODE_PRIVATE).edit();
+                        editor.putString("id", a);
+                        editor.apply();
+                        startActivity(intent);
+                        finish();
                         break;
                     case 666:
                         Toast.makeText(LoginActivity.this, "请再试一次....", Toast.LENGTH_SHORT).show();

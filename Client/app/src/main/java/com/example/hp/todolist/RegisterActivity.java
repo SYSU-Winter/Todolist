@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                         progressDialog = new ProgressDialog(RegisterActivity.this);
                         progressDialog.setTitle("注册中");
                         progressDialog.setMessage("正在注册，请稍候...");
-                        progressDialog.setCancelable(false);
+                        progressDialog.setCancelable(true);
                         progressDialog.show();
                         //启动登录Thread
                         RegisterPostThread(a, b, c);
@@ -74,7 +75,15 @@ public class RegisterActivity extends AppCompatActivity {
                 switch (msg.what) {
                     case SUCCEEDED:
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        String x = id.getText().toString();
+
+                        // 存储当前用户的id
+                        SharedPreferences.Editor editor = getSharedPreferences("UserNameData", MODE_PRIVATE).edit();
+                        editor.putString("id", x);
+                        editor.apply();
+
                         startActivity(intent);
+                        finish();
                         Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
                         break;
                     case FAILED:

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,7 +15,18 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class DetailsActivity extends AppCompatActivity {
+import com.fastaccess.datetimepicker.DatePickerFragmentDialog;
+import com.fastaccess.datetimepicker.DateTimeBuilder;
+import com.fastaccess.datetimepicker.callback.DatePickerCallback;
+import com.fastaccess.datetimepicker.callback.TimePickerCallback;
+
+import java.util.Calendar;
+
+import static com.example.hp.todolist.SampleHelper.getDateAndTime;
+import static com.example.hp.todolist.SampleHelper.getTimeOnly;
+import static com.example.hp.todolist.SampleHelper.getDateOnly;
+
+public class DetailsActivity extends AppCompatActivity implements DatePickerCallback, TimePickerCallback{
     private MyDB myDB;
     private CheckBox finishCB;
     private Button dateBtn;
@@ -75,23 +87,56 @@ public class DetailsActivity extends AppCompatActivity {
         dateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(DetailsActivity.this, SetDateActivity.class);
-                date = dateBtn.getText().toString();
-                intent1.putExtra("date", date);
-                startActivityForResult(intent1, 0);
+                Calendar minDate = Calendar.getInstance();
+//                minDate.set(2016, minDate.get(Calendar.MONTH), minDate.get(Calendar.DAY_OF_MONTH));
+//                Calendar maxDate = Calendar.getInstance();
+//                maxDate.set(2016, minDate.get(Calendar.MONTH) + 1, minDate.get(Calendar.DAY_OF_MONTH));
+//                Calendar currentDate = Calendar.getInstance();
+//                currentDate.set(2016, currentDate.get(Calendar.MONTH) + 1, currentDate.get(Calendar.DAY_OF_MONTH));
+                DatePickerFragmentDialog.newInstance(
+                        DateTimeBuilder.get()
+                                .withTime(true)
+                                .with24Hours(true)
+//                                .withSelectedDate(currentDate.getTimeInMillis())
+//                                .withMinDate(minDate.getTimeInMillis())
+//                                .withMaxDate(maxDate.getTimeInMillis())
+                                .withCurrentHour(12)
+                                .withCurrentMinute(30)
+                                .withTheme(R.style.PickersTheme))
+                        .show(getSupportFragmentManager(), "DatePickerFragmentDialog");
+//                Intent intent1 = new Intent(DetailsActivity.this, SetDateActivity.class);
+//                date = dateBtn.getText().toString();
+//                intent1.putExtra("date", date);
+//                startActivityForResult(intent1, 0);
             }
         });
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (data != null) {
-            date = data.getStringExtra("date");
-        }
-        dateBtn.setText(date);
+    public void onDateSet(long m) {
+        dateBtn.setText(String.valueOf(m));
     }
+
+    /**
+     * @param timeOnly
+     *         time only
+     * @param dateWithTime
+     *         full date with time
+     */
+    @Override
+    public void onTimeSet(long timeOnly, long dateWithTime) {
+        dateBtn.setText(String.format("%s", getDateAndTime(dateWithTime)));
+    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (data != null) {
+//            date = data.getStringExtra("date");
+//        }
+//        dateBtn.setText(date);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

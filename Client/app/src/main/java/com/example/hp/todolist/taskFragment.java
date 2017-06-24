@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -179,7 +180,15 @@ public class taskFragment extends Fragment {
         Map<String, Vector<String>> newFinished = myDB.queryAll(MyDB.FINISHED);
 
         Calendar calendar = Calendar.getInstance();
-        String today = calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日";
+        String today = "2017年06月21日";
+        if ((calendar.get(Calendar.MONTH) + 1) < 10) {
+            today = calendar.get(Calendar.YEAR) + "年0" + (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日";
+            Log.d("today = ", today);
+        } else {
+            today = calendar.get(Calendar.YEAR) + "年" + (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日";
+            Log.d("today = ", today);
+        }
+        //String today = calendar.get(Calendar.DAY_OF_MONTH) + " " + (calendar.get(Calendar.MONTH) + 1) + "月 " + calendar.get(Calendar.YEAR);
         for (int i = 0; i < newUnfinished.get("dates").size(); ) {
             if (!newUnfinished.get("dates").get(i).contains(today)) {
                 int index = newUnfinished.get("dates").indexOf(newUnfinished.get("dates").get(i));
