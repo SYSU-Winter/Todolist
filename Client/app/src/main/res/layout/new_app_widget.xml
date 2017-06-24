@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:padding="@dimen/widget_margin">
+
+    <TextView
+        android:id="@+id/headInWidget"
+        android:padding="5dp"
+        android:background="@color/base_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:text="@string/unfinished"/>
+
+        <TextView
+            android:id="@+id/unfinishedInWidget"
+            android:layout_below="@id/headInWidget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_semi_transparent"
+            android:textSize="16sp" />
+</RelativeLayout>
