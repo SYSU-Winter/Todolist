@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context="com.example.hp.todolist.SearchActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarInSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_color"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <EditText
+            android:id="@+id/searchET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_hint"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_pressed"
+            android:background="@null"
+            android:textCursorDrawable="@null"/>
+    </android.support.v7.widget.Toolbar>
+
+    <ImageButton
+        android:id="@+id/clearInputBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_action_clear_input"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/searchResultLV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarInSearch"/>
+
+    <TextView
+        android:id="@+id/noResultTV"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarInSearch"
+        android:layout_margin="10dp"
+        android:textSize="22sp"
+        android:text="@string/no_result" />
+</RelativeLayout>
