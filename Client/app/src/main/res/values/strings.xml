@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">TodoList</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_search_fragment">Hello search fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_task_fragment">Hello task fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_collection_fragment">Hello collection fragment</string>
+
+    <string name="today">今天</string>
+    <string name="collect_box">收集箱</string>
+    <string name="details">任务详情</string>
+    <string name="set_date">设置时间</string>
+
+    <string name="no_task_today">今天没有任务</string>
+    <string name="no_task">当前没有任务</string>
+    <string name="click_to_add">点击+添加任务</string>
+    <string name="unfinished">未完成</string>
+    <string name="finished">已完成</string>
+
+    <string name="empty_title">请输入任务标题</string>
+    <string name="same_title">已存在同名标题的任务</string>
+    <string name="no_date">未设置日期</string>
+    <string name="save">保存</string>
+    <string name="share">分享</string>
+    <string name="delete">删除</string>
+    <string name="search">搜索</string>
+    <string name="search_hint">请输入任务标题</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="no_result">无搜索结果</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+</resources>
