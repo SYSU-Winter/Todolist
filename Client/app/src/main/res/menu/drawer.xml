@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/search"
+            android:icon="@mipmap/ic_search"
+            android:title="搜索"/>
+        <item
+            android:id="@+id/today_task"
+            android:icon="@mipmap/ic_event"
+            android:title="今天"/>
+        <item
+            android:id="@+id/collection"
+            android:icon="@mipmap/ic_dashboard"
+            android:title="收集箱"/>
+    </group>
+</menu>
